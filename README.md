@@ -1,2 +1,1 @@
-# Smart-Pocket
-Application that helps you track your income and expenses :)
+# Next13, Firebase, Tailwind Tutorial
