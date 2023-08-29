@@ -1,1 +1,2 @@
-# Next13, Firebase, Tailwind Tutorial
+# App to track expenses and income 
+# more to come
