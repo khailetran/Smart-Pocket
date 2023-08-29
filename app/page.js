@@ -45,7 +45,7 @@ export default function Home() {
     {/* Modal */}
 
     <Modal show = {modalIsOpen} onClose={setModalIsOpen}> 
-    <h3>helllo world</h3>
+    <h3>hello world</h3>
     </Modal>
 
 
