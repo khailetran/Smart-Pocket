@@ -1,5 +1,5 @@
 "use client";
-import {useState, useRef} from 'react';
+import {useState, useRef, useEffect} from 'react';
 import {currencyFormatter} from '@/lib/utils'
 import ExpenseItem from '@/components/ExpenseItem'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
@@ -7,7 +7,14 @@ import { Doughnut } from "react-chartjs-2";
 import Modal from '@/components/Modal';
 //Firebase
 import { db } from '@/lib/firebase';
-import { collection, addDoc} from 'firebase/firestore'
+import {
+  collection,
+  addDoc,
+  getDocs,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
+
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -38,11 +45,18 @@ const dummy_data = [
    },
   ]
 
+
+
 export default function Home() {
 
+  //state for income list for useEffect below
+  const [income, setIncome] = useState([]);
+  console.log(income);
+
+  //state for modal
   const [showAddIncomeModal, setShowAddIncomeModal] = useState(false);
 
-
+  //references to amount and descriptions from income entry
   const amountRef = useRef();
   const descriptionRef = useRef();
   
@@ -66,7 +80,26 @@ export default function Home() {
         console.log(error.message)
        }
    } 
-  
+   useEffect(() => {
+    const getIncomeData = async () => {
+        const collectionRef = collection(db, 'income')
+        const docsSnap = await getDocs(collectionRef)  
+
+        //array to loop through docsSnap for each income data
+        const data = docsSnap.docs.map(doc => {
+          return {
+            id: doc.id,
+            ...doc.data(),
+            createdAt: new Date(doc.data().createdAt.toMillis())
+           }
+         })
+         setIncome(data)
+     }
+
+     getIncomeData();
+
+   }, [])
+   
   return (
     <>
       {/* Add Income Modal */}
@@ -104,6 +137,7 @@ export default function Home() {
         </form>
         <div className='flex flex-col gap-4 mt-6'> 
           <h3 className='text-2xl font-bold'>Income History</h3>
+
         </div>
       </Modal>
 
