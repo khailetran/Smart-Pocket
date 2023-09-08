@@ -15,6 +15,10 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 
+//importing icon
+
+import { FaRegTrashAlt } from "react-icons/fa";
+
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -90,6 +94,24 @@ export default function Home() {
         console.log(error.message)
        }
    } 
+
+   //handler to delete income
+   const deleteIncomeEntryHandler = async (incomeId) => {
+    const docRef = doc(db, 'income',incomeId)
+
+    try {
+    await deleteDoc(docRef);
+
+    //update state to delete 
+     }catch {
+      console.log(error.message)
+      }
+
+    }
+
+
+
+
    useEffect(() => {
     const getIncomeData = async () => {
         const collectionRef = collection(db, 'income')
@@ -158,6 +180,13 @@ export default function Home() {
                 </div>
               <p className='flex items-center gap-2'>
                 {currencyFormatter(i.amount)}
+                <button 
+                onClick= {() => { 
+                  deleteIncomeEntryHandler(i.id)
+                  }}
+                  >
+                <FaRegTrashAlt />
+                </button>
               </p>
               
               </div>
