@@ -102,7 +102,11 @@ export default function Home() {
     try {
     await deleteDoc(docRef);
 
-    //update state to delete 
+    //update state to delete return a new state where i.id is not equal to income deleted
+    setIncome(prevState => {
+      return prevState.filter((i) => i.id !== incomeId)
+     })
+
      }catch {
       console.log(error.message)
       }
