@@ -76,6 +76,16 @@ export default function Home() {
      try {
       //addDoc will return a document in the firestore db adding newIncome to the collection 
       const docSnap = await addDoc(collectionRef, newIncome)
+      //update state to change previous state and returning the new state with the array with previous incomes
+      setIncome( prevState => {
+        return [
+          ...prevState,
+          {
+            id: docSnap.id,
+            ...newIncome,
+           },
+        ]
+       })
       }catch {
         console.log(error.message)
        }
@@ -138,6 +148,22 @@ export default function Home() {
         <div className='flex flex-col gap-4 mt-6'> 
           <h3 className='text-2xl font-bold'>Income History</h3>
 
+
+          {income.map ((i) => {
+            return (
+              <div className='flex items-center justify-between' key= {i.id}>
+                <div>
+                <p className='font-semibold'>{i.description}</p>
+                <small className='text-xs'>{i.createdAt.toISOString()}</small>
+                </div>
+              <p className='flex items-center gap-2'>
+                {currencyFormatter(i.amount)}
+              </p>
+              
+              </div>
+
+             )
+           })}
         </div>
       </Modal>
 
