@@ -90,6 +90,11 @@ export default function Home() {
            },
         ]
        })
+
+       //set the descriptions and amount to blank
+
+       descriptionRef.current.value = "";
+       amountRef.current.value = "";
       }catch {
         console.log(error.message)
        }
