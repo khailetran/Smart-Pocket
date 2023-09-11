@@ -1,5 +1,6 @@
 "use client";
-import {useState} from 'react';
+import {useState, useContext, useEffect} from 'react';
+import { financeContext } from '@/lib/store/finance-context';
 import {currencyFormatter} from '@/lib/utils'
 import ExpenseItem from '@/components/ExpenseItem'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
@@ -9,44 +10,35 @@ import AddIncomeModal from '@/components/modals/AddIncomeModal'
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const dummy_data = [
-   {
-    id: 1,
-    title: "Entertainment",
-    color: '#001',
-    total: 100
-   },
-   {
-    id: 2,
-    title: "Gas",
-    color: '#900',
-    total: 500
-   },
-   {
-    id: 3,
-    title: "Rent",
-    color: '#000',
-    total: 600
-   },
-   {
-    id: 4,
-    title: "Food",
-    color: '#000',
-    total: 700
-   },
-  ]
+
 
 
 
 export default function Home() {
 
-  //state for income list for useEffect below
-  const [income, setIncome] = useState([]);
-  console.log(income);
+
 
   //state for modal
   const [showAddIncomeModal, setShowAddIncomeModal] = useState(false);
 
+  //state for balance
+  const [balance, setBalance] = useState(0);
+
+  //destructuring financeContext for expenses
+  const { expenses, income } = useContext(financeContext);
+
+
+  //useEffect to set balance every time the page is rendered
+  useEffect(() => {
+    const newBalance = income.reduce((total, i) => {
+      return total + i.amount
+     }, 0) -
+     expenses.reduce((total, e) => {
+      return total + e.total;
+      },0)
+
+      setBalance(newBalance);
+  }, [expenses,income]);
 
   return (
     <>
@@ -81,7 +73,7 @@ export default function Home() {
         <section className='py-6'>
           <h3 className='text-2xl'>My Expenses</h3>
           <div className='flex flex-col gap-4 mt-6'>
-            {dummy_data.map(expense => {
+            {expenses.map(expense => {
               return (
                 <ExpenseItem
                   key ={expense.id}
@@ -100,12 +92,12 @@ export default function Home() {
         <div className='w-1/2 mx-auto '>
           <Doughnut
             data={{
-              labels: dummy_data.map(expense => expense.title),
+              labels: expenses.map(expense => expense.title),
               datasets: [
                 {
                   label: 'Expenses',
-                  data: dummy_data.map(expense => expense.total),
-                  backgroundColor: dummy_data.map(expense => expense.color),
+                  data: expenses.map(expense => expense.total),
+                  backgroundColor: expenses.map(expense => expense.color),
                   borderColor: ['#18181b'],
                   borderWidth: 5,
                 },
