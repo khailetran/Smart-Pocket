@@ -7,6 +7,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 
 import AddIncomeModal from '@/components/modals/AddIncomeModal'
+import AddExpensesModal from '@/components/modals/AddExpensesModal';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -18,8 +19,9 @@ export default function Home() {
 
 
 
-  //state for modal
+  //state for modals
   const [showAddIncomeModal, setShowAddIncomeModal] = useState(false);
+  const [showAddExpenseModal, setShowAddExpenseModal] = useState(false);
 
   //state for balance
   const [balance, setBalance] = useState(0);
@@ -29,10 +31,13 @@ export default function Home() {
 
 
   //useEffect to set balance every time the page is rendered
+  //whenever expenses or income arrays change, the newBalance will be calculated 
   useEffect(() => {
     const newBalance = income.reduce((total, i) => {
+      //looping through income array to get the total
       return total + i.amount
      }, 0) -
+     //minus the looping through expense array to get the expense total
      expenses.reduce((total, e) => {
       return total + e.total;
       },0)
@@ -42,23 +47,32 @@ export default function Home() {
 
   return (
     <>
-      {/* Add Income Modal */}
+      {/* Add Income and Expense Modal */}
 
      <AddIncomeModal 
      show={showAddIncomeModal} 
      onClose={setShowAddIncomeModal} 
      />
 
+     <AddExpensesModal 
+     show={showAddExpenseModal}
+     onclose={setShowAddExpenseModal}
+     />
+
       <main className='container max-w-2xl px-6 mx-auto'>
         <section className='py-3'>
           <small className='text-gray-400 text-md'>My Balance</small>
-          <h2 className='text-4xl font-bold'>{currencyFormatter(100000)}</h2>
+          <h2 className='text-4xl font-bold'>{currencyFormatter(balance)}</h2>
         </section>
 
         <section className='flex items-center gap-2 py-3'>
-          <button onClick={() => {}} className='btn btn-primary'>
+          <button onClick={() => {
+            setShowAddExpenseModal(true)
+          }} 
+          className='btn btn-primary'>
             - Expenses
           </button>
+          
           <button
             onClick={() => {
               setShowAddIncomeModal(true);
