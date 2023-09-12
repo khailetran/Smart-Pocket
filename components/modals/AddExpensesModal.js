@@ -3,7 +3,7 @@ import { useState, useContext } from 'react';
 import { financeContext } from '@/lib/store/finance-context';
 import {v4 as uuidv4} from 'uuid';
 
-function AddExpensesModal({show,onClose}) {
+function AddExpensesModal({show, onClose}) {
     //states to update expense and expense cat
     const [expenseAmount, setExpenseAmount] = useState("");
     const [selectedCat, setSelectedCat] = useState(null)
@@ -37,6 +37,9 @@ function AddExpensesModal({show,onClose}) {
         };
 
         console.log(newExpense)
+        setExpenseAmount("")
+        setSelectedCat(null)
+        onClose();
      }
 
     return (
@@ -58,6 +61,7 @@ function AddExpensesModal({show,onClose}) {
         {/* expense categories */}
         {expenseAmount > 0 && (
           <div className='flex flex-col gap-4 mt-6'>
+            <h3 className='text-2xl capitalize'>Select expense category: </h3>
         {expenses.map(expense => {
           return (
             <button

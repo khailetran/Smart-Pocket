@@ -13,10 +13,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 
 
-
-
 export default function Home() {
-
 
 
   //state for modals
@@ -56,7 +53,7 @@ export default function Home() {
 
      <AddExpensesModal 
      show={showAddExpenseModal}
-     onclose={setShowAddExpenseModal}
+     onClose={setShowAddExpenseModal}
      />
 
       <main className='container max-w-2xl px-6 mx-auto'>
@@ -72,7 +69,7 @@ export default function Home() {
           className='btn btn-primary'>
             - Expenses
           </button>
-          
+
           <button
             onClick={() => {
               setShowAddIncomeModal(true);
