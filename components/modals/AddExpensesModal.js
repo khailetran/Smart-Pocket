@@ -10,7 +10,7 @@ function AddExpensesModal({show, onClose}) {
     const [showAddExpense, setShowAddExpense] = useState(false)
 
     //pulling expenses from financeContext
-    const { expenses, addExpenseItem } = useContext(financeContext);
+    const { expenses, addExpenseItem, addExpenseCat } = useContext(financeContext);
 
     //adding in new expense category
     const titleRef = useRef();
@@ -54,6 +54,20 @@ function AddExpensesModal({show, onClose}) {
 
      }
 
+     //Handler to add expense category into the db
+
+     const addCategoryHandler  = async () => {
+        const title = titleRef.current.value;
+        const color = colorRef.current.value;
+
+        try {
+            await addExpenseCat({title, color, total:0})
+            setShowAddExpense(false);
+         }catch(error){
+            console.log(error.message)
+          }
+      }
+
     return (
       <Modal show={show} onClose={onClose}>
         <div className='flex flex-col gap-4'>
@@ -90,7 +104,8 @@ function AddExpensesModal({show, onClose}) {
                 />
                 <label>Category Color</label>
                 <input type='color' className='w-24 h-10' ref={colorRef} />
-                <button className='btn btn-primary-outline'>Create </button>
+                <button onClick = {addCategoryHandler}
+                className='btn btn-primary-outline'>Create </button>
                 <button onClick={() => {
                     setShowAddExpense(false);
                  }}
