@@ -9,12 +9,12 @@ function AddExpensesModal({show, onClose}) {
     const [selectedCat, setSelectedCat] = useState(null)
 
     //pulling expenses from financeContext
-    const { expenses } = useContext(financeContext);
+    const { expenses, addExpenseItem } = useContext(financeContext);
 
 
     //function to pull data from the expense in firestore and inherit values to newExpense 
 
-    const addExpenseItemHandler = ( ) => {
+    const addExpenseItemHandler = async ( ) => {
 
         const expense = expenses.find(e => {
             return e.id === selectedCat
@@ -36,10 +36,17 @@ function AddExpensesModal({show, onClose}) {
             ]
         };
 
+        try {
+        await addExpenseItem(selectedCat, newExpense);
+
         console.log(newExpense)
         setExpenseAmount("")
         setSelectedCat(null)
-        onClose();
+        onClose();    
+         }catch(error){
+           console.log(error.message)
+         }  
+
      }
 
     return (
