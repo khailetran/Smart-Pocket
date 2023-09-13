@@ -8,8 +8,10 @@ import { useAmp } from 'next/amp';
 
 function ViewExpenseModal({ show, onClose, expense }) {
 
-  const {deleteExpenseItem} = useContext(financeContext)
+  const {deleteExpenseItem, deleteExpenseCat} = useContext(financeContext)
 
+
+  //Expense modal handlers
   const deleteExpenseItemHandler = async (item) => {
     try {
       //remove item from the array
@@ -31,14 +33,24 @@ function ViewExpenseModal({ show, onClose, expense }) {
       }
    }
 
+  
+   const deleteExpenseCatHandler = async () => {
 
+    try { 
+      await deleteExpenseCat(expense.id)
+    }catch (error) {
+      console.log(error.message)
+     }
+
+
+    }
 
 
   return (
     <Modal show={show} onClose={onClose}>
       <div className='flex items-center justify-between'>
         <h2 className='text-4xl'>{expense.title}</h2>
-        <button className='btn btn-danger'>Delete</button>
+        <button onClick = {deleteExpenseCatHandler} className='btn btn-danger'>Delete</button>
       </div>
 
       <div>
