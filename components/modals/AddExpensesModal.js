@@ -1,5 +1,5 @@
 import Modal from '@/components/Modal';
-import { useState, useContext } from 'react';
+import { useState, useContext, useRef } from 'react';
 import { financeContext } from '@/lib/store/finance-context';
 import {v4 as uuidv4} from 'uuid';
 
@@ -7,9 +7,14 @@ function AddExpensesModal({show, onClose}) {
     //states to update expense and expense cat
     const [expenseAmount, setExpenseAmount] = useState("");
     const [selectedCat, setSelectedCat] = useState(null)
+    const [showAddExpense, setShowAddExpense] = useState(false)
 
     //pulling expenses from financeContext
-    const { expenses, addExpenseItem } = useContext(financeContext);
+    const { expenses, addExpenseItem, addExpenseCat } = useContext(financeContext);
+
+    //adding in new expense category
+    const titleRef = useRef();
+    const colorRef = useRef();
 
 
     //function to pull data from the expense in firestore and inherit values to newExpense 
@@ -49,6 +54,20 @@ function AddExpensesModal({show, onClose}) {
 
      }
 
+     //Handler to add expense category into the db
+
+     const addCategoryHandler  = async () => {
+        const title = titleRef.current.value;
+        const color = colorRef.current.value;
+
+        try {
+            await addExpenseCat({title, color, total:0})
+            setShowAddExpense(false);
+         }catch(error){
+            console.log(error.message)
+          }
+      }
+
     return (
       <Modal show={show} onClose={onClose}>
         <div className='flex flex-col gap-4'>
@@ -68,45 +87,71 @@ function AddExpensesModal({show, onClose}) {
         {/* expense categories */}
         {expenseAmount > 0 && (
           <div className='flex flex-col gap-4 mt-6'>
-            <h3 className='text-2xl capitalize'>Select expense category: </h3>
-        {expenses.map(expense => {
-          return (
-            <button
-            key={expense.id}
-            onClick={() => {
-                setSelectedCat(expense.id);
-             }}
-            >
-              <div style={{
-                boxShadow: expense.id === selectedCat? "1px 1px 4px": "none",
-              }}
-              className='flex items-center justify-between px-4 py-4 bg-slate-700 rounded-3xl '>
-                <div className='flex items-center gap-2'>
-                  {/* colored circle */}
-                  <div
-                    className='w-[25px] h-[25px] rounded-full'
-                    style={{
-                      backgroundColor: expense.color,
-                    }}
-                  />
-                  <h4 className='capitalize'>{expense.title}</h4>
-                </div>
+            <div className='flex items-center justify-between'>
+              <h3 className='text-2xl capitalize'>Select expense category: </h3>
+              <button onClick={() => {
+                setShowAddExpense(true);
+              }} 
+              className='text-lime-400'>New Category</button>
+            </div>
+
+            {showAddExpense && (
+              <div className='flex items-center justify-between'>
+                <input
+                  type='text'
+                  placeholder='Enter category'
+                  ref={titleRef}
+                />
+                <label>Category Color</label>
+                <input type='color' className='w-24 h-10' ref={colorRef} />
+                <button onClick = {addCategoryHandler}
+                className='btn btn-primary-outline'>Create </button>
+                <button onClick={() => {
+                    setShowAddExpense(false);
+                 }}
+                 className='btn btn-danger'>Cancel</button>
               </div>
-            </button>
-          );
-        })}
-        </div>  
+            )}
+
+            {expenses.map(expense => {
+              return (
+                <button
+                  key={expense.id}
+                  onClick={() => {
+                    setSelectedCat(expense.id);
+                  }}
+                >
+                  <div
+                    style={{
+                      boxShadow:
+                        expense.id === selectedCat ? '1px 1px 4px' : 'none',
+                    }}
+                    className='flex items-center justify-between px-4 py-4 bg-slate-700 rounded-3xl '
+                  >
+                    <div className='flex items-center gap-2'>
+                      {/* colored circle */}
+                      <div
+                        className='w-[25px] h-[25px] rounded-full'
+                        style={{
+                          backgroundColor: expense.color,
+                        }}
+                      />
+                      <h4 className='capitalize'>{expense.title}</h4>
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         )}
 
         {expenseAmount > 0 && selectedCat && (
-            <div className='mt-6'>
-            <button
-            className='btn btn-primary'
-            onClick = {addExpenseItemHandler}>
-                Add Expense
+          <div className='mt-6'>
+            <button className='btn btn-primary' onClick={addExpenseItemHandler}>
+              Add Expense
             </button>
           </div>
-         )}
+        )}
       </Modal>
     );
 
