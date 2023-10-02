@@ -5,7 +5,7 @@ import {currencyFormatter} from '@/lib/utils'
 import ExpenseItem from '@/components/ExpenseItem'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-
+import SignIn from '@/components/Signin';
 import AddIncomeModal from '@/components/modals/AddIncomeModal'
 import AddExpensesModal from '@/components/modals/AddExpensesModal';
 
