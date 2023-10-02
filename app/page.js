@@ -1,6 +1,7 @@
 "use client";
 import {useState, useContext, useEffect} from 'react';
 import { financeContext } from '@/lib/store/finance-context';
+import { authContext } from '@/lib/store/auth-context';
 import {currencyFormatter} from '@/lib/utils'
 import ExpenseItem from '@/components/ExpenseItem'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
@@ -25,7 +26,7 @@ export default function Home() {
 
   //destructuring financeContext for expenses
   const { expenses, income } = useContext(financeContext);
-
+  const { user, loading } = useContext(authContext)
 
   //useEffect to set balance every time the page is rendered
   //whenever expenses or income arrays change, the newBalance will be calculated 
@@ -42,6 +43,10 @@ export default function Home() {
       setBalance(newBalance);
   }, [expenses,income]);
 
+
+  if(!user) {
+    return <SignIn />
+  }
   return (
     <>
       {/* Add Income and Expense Modal */}
