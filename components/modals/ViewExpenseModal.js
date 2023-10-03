@@ -4,7 +4,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { useContext } from 'react';
 import { financeContext } from '@/lib/store/finance-context';
 import { useAmp } from 'next/amp';
-
+import { toast} from "react-toastify";
 
 function ViewExpenseModal({ show, onClose, expense }) {
 
@@ -27,9 +27,10 @@ function ViewExpenseModal({ show, onClose, expense }) {
        }
 
        await deleteExpenseItem(updatedExpense, expense.id);
-
+       toast.success("Expense item successfully deleted!")
      }catch(error){
       console.log(error.message)
+      toast.error(error.message)
       }
    }
 
@@ -38,8 +39,10 @@ function ViewExpenseModal({ show, onClose, expense }) {
 
     try { 
       await deleteExpenseCat(expense.id)
+      toast.success("Expense category successfully deleted!")
     }catch (error) {
       console.log(error.message)
+      toast.error(error.message)
      }
 
 
