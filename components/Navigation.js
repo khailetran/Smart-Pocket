@@ -29,7 +29,9 @@ function Nav() {
     {user && !loading && (
        <nav className="flex items-center gap-4">
       <div>
+      <a href="#stats">
       <ImStatsDots className = "text-2xl"/>
+      </a>
       </div>
 
       <div>
