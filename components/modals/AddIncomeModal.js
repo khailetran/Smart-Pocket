@@ -58,20 +58,8 @@ function AddIncomeModal({show,onClose}) {
     return (
         <Modal show={show} onClose={onClose}>
         <form onSubmit = {addIncomeHandler} className='flex flex-col gap-4'>
-          <div className='input-group'>
-            <label htmlFor='amount'> Income Amount </label>
-            <input
-              type='number'
-              min={0.1}
-              ref={amountRef}
-              name ="amount"
-              step={0.1}
-              placeholder='Enter income amount'
-              required
-            />
-          </div>
 
-          <div className='input-group'>
+        <div className='input-group'>
             <label htmlFor='amount'> Description </label>
             <input
 
@@ -85,7 +73,20 @@ function AddIncomeModal({show,onClose}) {
             />
           </div>
 
-          <button type = "submit" className='btn btn-primary'>Add Transaction</button>
+          <div className='input-group'>
+            <label htmlFor='amount'> Income Amount </label>
+            <input
+              type='number'
+              min={0.1}
+              ref={amountRef}
+              name ="amount"
+              step={0.1}
+              placeholder='Enter income amount'
+              required
+            />
+          </div>
+
+          <button type = "submit" className='btn btn-primary-outline'>Add Transaction</button>
         </form>
         <div className='flex flex-col gap-4 mt-6'> 
           <h3 className='text-2xl font-bold'>Income History</h3>

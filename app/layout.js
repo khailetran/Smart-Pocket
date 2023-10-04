@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
         <AuthContextProvider>
           <FinanceContextProvider>
             <ToastContainer />
-              <Nav />
+              {/* <Nav /> */}
               {children}
           </FinanceContextProvider>
         </AuthContextProvider>

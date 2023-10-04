@@ -1,18 +1,19 @@
-import {ImStatsDots}  from 'react-icons/im'
 import {useContext} from 'react';
 import { authContext } from '@/lib/store/auth-context';
+import {MdQueryStats}  from 'react-icons/md';
+import {IoMdLogOut}  from 'react-icons/io';
 
 function Nav() {
 
     const {user, loading, logout} = useContext(authContext);
 
-    return  <header className="container max-w-2xl px-6 py-6 mx-auto">
+    return  <header className="container max-w-2xl mx-auto gap-2 ">
     <div  className="flex items-center justify-between">
     {/* User information */}
     {user && !loading &&(
           <div className = "flex items-center gap-2">
       {/* profile image */}
-      <div className = "h-[40px] w-[40px] rounded-full overflow-hidden">  
+      <div className = "h-[50px] w-[50px] rounded-full overflow-hidden">  
       <img 
       className ="object-cover w-full h-full"
       src = {user.photoURL}
@@ -21,7 +22,7 @@ function Nav() {
       />
       </div>
       {/* name */}
-      <small>Hi,{user.displayName}!</small>
+      <small>Hi, {user.displayName}!</small>
     </div>
     )}
 
@@ -30,12 +31,15 @@ function Nav() {
        <nav className="flex items-center gap-4">
       <div>
       <a href="#stats">
-      <ImStatsDots className = "text-2xl"/>
+      <MdQueryStats className = "text-2xl"/>
       </a>
       </div>
 
       <div>
-      <button onClick={logout} className='btn btn-danger'>Sign Out</button>
+      {/* <button onClick={logout} className='btn btn-danger'>Sign Out</button> */}
+      <a href="#">
+      <IoMdLogOut onClick={logout} className = "text-2xl"/>
+      </a>
       </div>
     </nav>
      )}

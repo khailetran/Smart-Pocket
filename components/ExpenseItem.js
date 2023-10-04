@@ -16,7 +16,7 @@ function ExpenseItem({expense }) {
         <button onClick={()=>{
           setShowViewExpenseModal(true)
         }}>
-          <div className="flex items-center justify-between px-4 py-4 bg-slate-700 rounded-3xl">
+          <div className="flex items-center justify-between px-4 py-4 bg-violet-50 rounded-3xl text-black">
             <div className="flex items-center gap-2">
               <div
                 className="w-[25px] h-[25px] rounded-full"
