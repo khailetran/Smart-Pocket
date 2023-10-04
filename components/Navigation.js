@@ -13,9 +13,9 @@ function Nav() {
     {user && !loading &&(
           <div className = "flex items-center gap-2">
       {/* profile image */}
-      <div className = "h-[50px] w-[50px] rounded-full overflow-hidden">  
+      <div className = "h-[50px] w-[50px] rounded-full overflow-hidden hover:scale-110">  
       <img 
-      className ="object-cover w-full h-full"
+      className ="object-cover w-full h-full "
       src = {user.photoURL}
       alt = {user.displayName}
       referrerPolicy='no-referrer'
@@ -31,14 +31,14 @@ function Nav() {
        <nav className="flex items-center gap-4">
       <div>
       <a href="#stats">
-      <MdQueryStats className = "text-2xl"/>
+      <MdQueryStats className = "text-2xl hover:scale-110"/>
       </a>
       </div>
 
       <div>
       {/* <button onClick={logout} className='btn btn-danger'>Sign Out</button> */}
       <a href="#">
-      <IoMdLogOut onClick={logout} className = "text-2xl"/>
+      <IoMdLogOut onClick={logout} className = "text-2xl hover:scale-110"/>
       </a>
       </div>
     </nav>

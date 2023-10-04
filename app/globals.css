@@ -11,7 +11,7 @@
         @apply relative bg-slate-400 text-white;
     }
     button {
-        @apply transition-all duration-100 hover:scale-110;
+        @apply transition-all duration-100 hover:scale-105;
     }
 
     input {
@@ -31,6 +31,11 @@
      .btn-primary-outline{
         @apply border border-green-600 text-green-600
      }
+
+     .btn-primary-outline-expense{
+        @apply border border-red-700 text-red-700
+     }
+
 
     .btn-danger{
         @apply text-white  bg-red-500 border-red-500 border;

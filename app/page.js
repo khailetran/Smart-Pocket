@@ -73,8 +73,8 @@ export default function Home() {
           <button onClick={() => {
             setShowAddExpenseModal(true)
           }} 
-          className='btn btn-primary'>
-            - Expenses
+          className='btn btn-primary-outline-expense'>
+            - Expense
           </button>
 
           <button
