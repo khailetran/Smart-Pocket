@@ -62,7 +62,8 @@ export default function Home() {
      onClose={setShowAddExpenseModal}
      />
 
-      <main className=' bg-slate-200 py-4 rounded-2xl container max-w-2xl px-6 mx-auto text-slate-600'>
+     <div className='flex flex-col items-center justify-center mt-10'> 
+      <main className=' bg-slate-200 py-4 rounded-3xl container max-w-2xl px-6 mx-auto text-slate-600'>
       <Nav />
         <section className='py-3'>
           <small className='text-slate-700 text-md'>My Balance:</small>
@@ -107,7 +108,7 @@ export default function Home() {
         <section className='py-6'></section>
         <a id="stats" />
         <h3 className='text-3xl text-slate-700'> Expense Summary: </h3>
-        <div className='w-1/2 mx-auto '>
+        <div className='w-1/2 mx-auto hover:scale-110 px-4 '>
           <Doughnut
             data={{
               labels: expenses.map(expense => expense.title),
@@ -124,6 +125,7 @@ export default function Home() {
           />
         </div>
       </main>
+      </div>
     </>
   );
 }

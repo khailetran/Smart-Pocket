@@ -53,7 +53,7 @@ function ViewExpenseModal({ show, onClose, expense }) {
     <Modal show={show} onClose={onClose}>
       <div className='flex items-center justify-between'>
         <h2 className='text-4xl text-white'>{expense.title}</h2>
-        <button onClick = {deleteExpenseCatHandler} className='btn btn-danger'>Delete</button>
+        <button onClick = {deleteExpenseCatHandler} className='btn btn-danger'>Remove Category</button>
       </div>
 
       <div>
