@@ -62,10 +62,10 @@ export default function Home() {
      onClose={setShowAddExpenseModal}
      />
 
-      <main className=' bg-slate-400 py-4 rounded-2xl container max-w-2xl px-6 mx-auto'>
+      <main className=' bg-slate-200 py-4 rounded-2xl container max-w-2xl px-6 mx-auto text-slate-600'>
       <Nav />
         <section className='py-3'>
-          <small className='text-white text-md'>My Balance:</small>
+          <small className='text-slate-700 text-md'>My Balance:</small>
           <h2 className='text-4xl font-bold'>{currencyFormatter(balance)}</h2>
         </section>
 
@@ -106,7 +106,7 @@ export default function Home() {
         {/* Chart Session */}
         <section className='py-6'></section>
         <a id="stats" />
-        <h3 className='text-3xl'> Expense Summary: </h3>
+        <h3 className='text-3xl text-slate-700'> Expense Summary: </h3>
         <div className='w-1/2 mx-auto '>
           <Doughnut
             data={{
@@ -116,7 +116,7 @@ export default function Home() {
                   label: 'Expenses',
                   data: expenses.map(expense => expense.total),
                   backgroundColor: expenses.map(expense => expense.color),
-                  borderColor: ['#94a3b8'],
+                  borderColor: ['#e2e8f0'],
                   borderWidth: 6,
                 },
               ],
