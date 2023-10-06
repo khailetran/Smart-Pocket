@@ -17,6 +17,7 @@
     input {
         @apply px-4 py-2 bg-sky-800 rounded-xl;
     }
+
 }
 
 @layer utilities{
@@ -25,15 +26,15 @@
     }
 
     .btn-primary{
-        @apply border bg-sky-900 border-sky-900 text-red-200
+        @apply border bg-sky-900 border-sky-900 text-red-200;
      }
 
      .btn-primary-outline{
-        @apply border border-green-600 text-green-600
+        @apply border border-green-600 text-green-600;
      }
 
      .btn-primary-outline-expense{
-        @apply border border-red-700 text-red-700
+        @apply border border-red-700 text-red-700;
      }
 
 
@@ -42,7 +43,10 @@
     }
 
     .input-group {
-        @apply flex flex-col gap-4
+        @apply flex flex-col gap-4;
 
+     }
+     .login-component{
+        @apply bg-amber-50;
      }
 }
