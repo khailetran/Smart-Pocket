@@ -9,6 +9,7 @@ import { Doughnut } from "react-chartjs-2";
 import SignIn from '@/components/Signin';
 import AddIncomeModal from '@/components/modals/AddIncomeModal'
 import AddExpensesModal from '@/components/modals/AddExpensesModal';
+import Nav from '@/components/Navigation'
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -61,9 +62,11 @@ export default function Home() {
      onClose={setShowAddExpenseModal}
      />
 
-      <main className='container max-w-2xl px-6 mx-auto'>
+     <div className='flex flex-col items-center justify-center mt-10'> 
+      <main className=' bg-slate-200 py-4 rounded-3xl container max-w-2xl px-6 mx-auto text-slate-600'>
+      <Nav />
         <section className='py-3'>
-          <small className='text-gray-400 text-md'>My Balance</small>
+          <small className='text-slate-700 text-md'>My Balance:</small>
           <h2 className='text-4xl font-bold'>{currencyFormatter(balance)}</h2>
         </section>
 
@@ -71,8 +74,8 @@ export default function Home() {
           <button onClick={() => {
             setShowAddExpenseModal(true)
           }} 
-          className='btn btn-primary'>
-            - Expenses
+          className='btn btn-primary-outline-expense'>
+            - Expense
           </button>
 
           <button
@@ -87,7 +90,7 @@ export default function Home() {
         </section>
         {/* Expenses */}
         <section className='py-6'>
-          <h3 className='text-2xl'>My Expenses</h3>
+          <h3 className='text-2xl'>My Expenses: </h3>
           <div className='flex flex-col gap-4 mt-6'>
             {expenses.map(expense => {
               return (
@@ -104,8 +107,8 @@ export default function Home() {
         {/* Chart Session */}
         <section className='py-6'></section>
         <a id="stats" />
-        <h3 className='text-2xl'> Stats </h3>
-        <div className='w-1/2 mx-auto '>
+        <h3 className='text-3xl text-slate-700'> Expense Summary: </h3>
+        <div className='w-1/2 mx-auto hover:scale-110 px-4 '>
           <Doughnut
             data={{
               labels: expenses.map(expense => expense.title),
@@ -114,14 +117,15 @@ export default function Home() {
                   label: 'Expenses',
                   data: expenses.map(expense => expense.total),
                   backgroundColor: expenses.map(expense => expense.color),
-                  borderColor: ['#18181b'],
-                  borderWidth: 5,
+                  borderColor: ['#e2e8f0'],
+                  borderWidth: 6,
                 },
               ],
             }}
           />
         </div>
       </main>
+      </div>
     </>
   );
 }

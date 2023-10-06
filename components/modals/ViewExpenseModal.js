@@ -52,16 +52,16 @@ function ViewExpenseModal({ show, onClose, expense }) {
   return (
     <Modal show={show} onClose={onClose}>
       <div className='flex items-center justify-between'>
-        <h2 className='text-4xl'>{expense.title}</h2>
-        <button onClick = {deleteExpenseCatHandler} className='btn btn-danger'>Delete</button>
+        <h2 className='text-4xl text-white'>{expense.title}</h2>
+        <button onClick = {deleteExpenseCatHandler} className='btn btn-danger'>Remove Category</button>
       </div>
 
       <div>
-        <h3 className='my-4 text-2xl'>Expense Transactions</h3>
+        <h3 className='my-4 text-2xl text-white'>Expense Transactions</h3>
         {expense.items.map((item)=> {
             return (<div 
             key = {item.id}
-            className='flex items-center justify-between'>
+            className='flex items-center justify-between text-white'>
              <small>
               {item.createdAt.toMillis
              ? new Date (item.createdAt.toMillis()).toISOString()
