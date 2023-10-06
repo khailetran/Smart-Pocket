@@ -63,14 +63,16 @@ export default function Home() {
      />
 
      <div className='flex flex-col items-center justify-center mt-10'> 
-      <main className=' bg-slate-200 py-4 rounded-3xl container max-w-2xl px-6 mx-auto text-slate-600'>
-      <Nav />
-        <section className='py-3'>
+     <Nav/>
+      <main className=' bg-slate-200 py-4 rounded-3xl container mt-5 max-w-2xl px-6 mx-auto text-slate-600'>
+
+        {/* <section className='py-3'>
           <small className='text-slate-700 text-md'>My Balance:</small>
           <h2 className='text-4xl font-bold'>{currencyFormatter(balance)}</h2>
-        </section>
-
+        </section> */}
+        <h3 className='text-3xl'>Enter Transaction: </h3>
         <section className='flex items-center gap-2 py-3'>
+          
           <button onClick={() => {
             setShowAddExpenseModal(true)
           }} 
@@ -90,7 +92,7 @@ export default function Home() {
         </section>
         {/* Expenses */}
         <section className='py-6'>
-          <h3 className='text-2xl'>My Expenses: </h3>
+          <h3 className='text-3xl'>My Expenses: </h3>
           <div className='flex flex-col gap-4 mt-6'>
             {expenses.map(expense => {
               return (
