@@ -33,12 +33,16 @@ Smart Pocket is a user-friendly web application designed to help you effortlessl
 ## Demo
 
 - **Login on with Google Authentication to add income and expense** 
-public/Demo_authentication.mov
-
+![demo1](public/Demo_authentication.gif)
 
 - **Creating new expense category** 
+![demo2](public/Demo_addingNewExpense.gif)
+
 - **Transaction History**
+![demo3](public/Demo_transactionHistory.gif)
+
  - **Chart graph visualization of expenses in categories and amount**
+![demo4](public/Demo_chartandLogOut.gif)
 
 ## Getting Started
 
